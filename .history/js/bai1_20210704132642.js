@@ -21,10 +21,8 @@ var notifications = [
   "Chỉ có đối tượng 1, 2 hoặc 3!",
   "Vui lòng nhập vào số!",
   "Vui lòng nhập vào ký tự!",
-  "Bạn đã rớt",
-  "Bạn trúng tuyển",
-  "Vui lòng nhập điểm chuẩn",
-  "Điểm chuẩn từ 0 - 30"
+  "Bạn đã rớt!",
+  "Bạn trúng tuyển!"
 ]
 
 // Kiểm tra người dùng có nhập không
@@ -81,13 +79,6 @@ function checkValueScores(idCheck, idNotification, indexNotification, max) {
 
 // Kiểm tra hợp lệ
 function checkValid() {
-  var check = checkEntry("benchmark", "notificationBenchmark", 12);
-  if (check) {
-    check = isNumber("benchmark", "notificationBenchmark", 8);
-    if (check) {
-      check = checkValueScores("benchmark", "notificationBenchmark", 13, 30);
-    }
-  }
   var check1 = checkEntry("scores-1", "notificationScores-1", 0);
   if (check1) {
     check1 = isNumber("scores-1", "notificationScores-1", 8);
@@ -118,7 +109,7 @@ function checkValid() {
   if (check5) {
     check5 = checkValueScores("objectScores", "notificationObject", 7, 3)
   }
-  if (check && check1 && check2 && check3 && check4 && check5) {
+  if (check1 && check2 && check3 && check4 && check5) {
     return true;
   }
   return false;
@@ -143,17 +134,17 @@ function getScoresArea() {
 
 // Get điểm của đối tượng
 function getScoresObject() {
-  var contentArea = +getEle("objectScores").value;
-  if (contentArea === 0) {
+  var contentArea = getEle("objectScores").value;
+  if (contentArea.toUpperCase() === 0) {
     return 0;
   }
-  if (contentArea === 1) {
+  if (contentArea.toUpperCase() === 1) {
     return OBJECT_1;
   }
-  if (contentArea === 2) {
+  if (contentArea.toUpperCase() === 2) {
     return OBJECT_2;
   }
-  if (contentArea === 2) {
+  if (contentArea.toUpperCase() === 2) {
     return OBJECT_3;
   }
 }
@@ -166,7 +157,6 @@ getEle("btnResult").addEventListener("click", function () {
   var resultCheck = checkValid();
   if (resultCheck) {
 
-    var scoresBenchmark = +getEle("benchmark").value;
     var scores1 = +getEle("scores-1").value;
     var scores2 = +getEle("scores-2").value;
     var scores3 = +getEle("scores-3").value;
@@ -179,14 +169,9 @@ getEle("btnResult").addEventListener("click", function () {
       scores2 === 0 ||
       scores3 === 0) {
       getEle('showResult').innerHTML = notifications[10];
-      getEle('showResult').innerHTML += " vì có một môn có số điểm bằng 0";
     } else {
-      if (sumScores >= scoresBenchmark) {
-        getEle('showResult').innerHTML = notifications[11];
-        getEle('showResult').innerHTML += " với số điểm " + sumScores;
-      } else {
-        getEle('showResult').innerHTML = notifications[10];
-        getEle('showResult').innerHTML += " với số điểm " + sumScores;
+      if (sumScores >) {
+
       }
 
     }

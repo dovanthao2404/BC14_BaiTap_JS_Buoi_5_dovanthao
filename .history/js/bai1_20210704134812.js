@@ -1,3 +1,5 @@
+const BENCHMARK = 24;
+
 const AREA_A = 2;
 const AREA_B = 1;
 const AREA_C = 0.5;
@@ -24,7 +26,7 @@ var notifications = [
   "Bạn đã rớt",
   "Bạn trúng tuyển",
   "Vui lòng nhập điểm chuẩn",
-  "Điểm chuẩn từ 0 - 30"
+  "Điểm chuẩn lớn hơn 0"
 ]
 
 // Kiểm tra người dùng có nhập không
@@ -83,9 +85,9 @@ function checkValueScores(idCheck, idNotification, indexNotification, max) {
 function checkValid() {
   var check = checkEntry("benchmark", "notificationBenchmark", 12);
   if (check) {
-    check = isNumber("benchmark", "notificationBenchmark", 8);
+    check = isNumber("sbenchmark", "notificationBenchmark", 8);
     if (check) {
-      check = checkValueScores("benchmark", "notificationBenchmark", 13, 30);
+      check = checkValueScores("benchmark", "notificationBenchmark", 12, 40);
     }
   }
   var check1 = checkEntry("scores-1", "notificationScores-1", 0);

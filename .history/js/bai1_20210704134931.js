@@ -24,7 +24,7 @@ var notifications = [
   "Bạn đã rớt",
   "Bạn trúng tuyển",
   "Vui lòng nhập điểm chuẩn",
-  "Điểm chuẩn từ 0 - 30"
+  "Điểm chuẩn lớn hơn 0"
 ]
 
 // Kiểm tra người dùng có nhập không
@@ -85,7 +85,7 @@ function checkValid() {
   if (check) {
     check = isNumber("benchmark", "notificationBenchmark", 8);
     if (check) {
-      check = checkValueScores("benchmark", "notificationBenchmark", 13, 30);
+      check = checkValueScores("benchmark", "notificationBenchmark", 12, 40);
     }
   }
   var check1 = checkEntry("scores-1", "notificationScores-1", 0);

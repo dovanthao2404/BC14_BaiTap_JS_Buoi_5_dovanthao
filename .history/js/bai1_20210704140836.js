@@ -24,7 +24,7 @@ var notifications = [
   "Bạn đã rớt",
   "Bạn trúng tuyển",
   "Vui lòng nhập điểm chuẩn",
-  "Điểm chuẩn từ 0 - 30"
+  "Điểm chuẩn lớn hơn 0 và nhỏ"
 ]
 
 // Kiểm tra người dùng có nhập không

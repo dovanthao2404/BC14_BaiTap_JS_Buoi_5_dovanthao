@@ -1,3 +1,5 @@
+const BENCHMARK = 24;
+
 const AREA_A = 2;
 const AREA_B = 1;
 const AREA_C = 0.5;
@@ -22,9 +24,7 @@ var notifications = [
   "Vui lòng nhập vào số!",
   "Vui lòng nhập vào ký tự!",
   "Bạn đã rớt",
-  "Bạn trúng tuyển",
-  "Vui lòng nhập điểm chuẩn",
-  "Điểm chuẩn từ 0 - 30"
+  "Bạn trúng tuyển"
 ]
 
 // Kiểm tra người dùng có nhập không
@@ -81,13 +81,6 @@ function checkValueScores(idCheck, idNotification, indexNotification, max) {
 
 // Kiểm tra hợp lệ
 function checkValid() {
-  var check = checkEntry("benchmark", "notificationBenchmark", 12);
-  if (check) {
-    check = isNumber("benchmark", "notificationBenchmark", 8);
-    if (check) {
-      check = checkValueScores("benchmark", "notificationBenchmark", 13, 30);
-    }
-  }
   var check1 = checkEntry("scores-1", "notificationScores-1", 0);
   if (check1) {
     check1 = isNumber("scores-1", "notificationScores-1", 8);
@@ -118,7 +111,7 @@ function checkValid() {
   if (check5) {
     check5 = checkValueScores("objectScores", "notificationObject", 7, 3)
   }
-  if (check && check1 && check2 && check3 && check4 && check5) {
+  if (check1 && check2 && check3 && check4 && check5) {
     return true;
   }
   return false;
@@ -166,12 +159,12 @@ getEle("btnResult").addEventListener("click", function () {
   var resultCheck = checkValid();
   if (resultCheck) {
 
-    var scoresBenchmark = +getEle("benchmark").value;
     var scores1 = +getEle("scores-1").value;
     var scores2 = +getEle("scores-2").value;
     var scores3 = +getEle("scores-3").value;
     var scoresArea = getScoresArea();
     var scoresObject = getScoresObject();
+    console.log(scoresObject);
 
     var sumScores = score(scores1, scores2, scores3, scoresArea, scoresObject);
 
@@ -181,7 +174,7 @@ getEle("btnResult").addEventListener("click", function () {
       getEle('showResult').innerHTML = notifications[10];
       getEle('showResult').innerHTML += " vì có một môn có số điểm bằng 0";
     } else {
-      if (sumScores >= scoresBenchmark) {
+      if (sumScores >= BENCHMARK) {
         getEle('showResult').innerHTML = notifications[11];
         getEle('showResult').innerHTML += " với số điểm " + sumScores;
       } else {
