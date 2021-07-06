@@ -58,18 +58,9 @@ function checkValueKw(idCheck, idNotification, indexNotification) {
 function checkValid() {
   var result = checkEntry("username", "notificationUsername", 0);
 
-  var result1 = checkEntry("kwUse", "notificationKWUse", 1);
+  var result1 = checkEntry("kwUse", "notificationKWUse", 1) && checkIsNumber("kwUse", "notificationKWUse", 2) && checkValueKw("kwUse", "notificationKWUse", 3);
 
-  if (result1) {
-    result1 = checkIsNumber("kwUse", "notificationKWUse", 2);
-    if (result1) {
-      result1 = checkValueKw("kwUse", "notificationKWUse", 3)
-    }
-  }
-  if (result && result1) {
-    return true;
-  }
-  return false;
+  return (result && result1) ? true : false;
 }
 
 function getTotalLevel1(kw) {

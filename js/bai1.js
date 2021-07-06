@@ -1,3 +1,4 @@
+// Hằng số global
 const AREA_A = 2;
 const AREA_B = 1;
 const AREA_C = 0.5;
@@ -6,10 +7,12 @@ const OBJECT_1 = 2.5;
 const OBJECT_2 = 1.5;
 const OBJECT_3 = 1;
 
+// return document.getElêmntById();
 function getEle(idEle) {
   return document.getElementById(idEle);
 }
 
+// Các thông báo
 var notifications = [
   "Vui lòng nhập điểm thứ nhất!",
   "Vui lòng nhập điểm thứ hai!",
@@ -81,47 +84,20 @@ function checkValueScores(idCheck, idNotification, indexNotification, max) {
 
 // Kiểm tra hợp lệ
 function checkValid() {
-  var check = checkEntry("benchmark", "notificationBenchmark", 12);
-  if (check) {
-    check = isNumber("benchmark", "notificationBenchmark", 8);
-    if (check) {
-      check = checkValueScores("benchmark", "notificationBenchmark", 13, 30);
-    }
-  }
-  var check1 = checkEntry("scores-1", "notificationScores-1", 0);
-  if (check1) {
-    check1 = isNumber("scores-1", "notificationScores-1", 8);
-    if (check1) {
-      check1 = checkValueScores("scores-1", "notificationScores-1", 5, 10);
-    }
-  }
-  var check2 = checkEntry("scores-2", "notificationScores-2", 1);
-  if (check2) {
-    check2 = isNumber("scores-2", "notificationScores-2", 8);
-    if (check2) {
-      check2 = checkValueScores("scores-2", "notificationScores-2", 5, 10);
-    }
-  }
-  var check3 = checkEntry("scores-3", "notificationScores-3", 2);
-  if (check3) {
-    check3 = isNumber("scores-3", "notificationScores-3", 8);
-    if (check3) {
-      check3 = checkValueScores("scores-3", "notificationScores-3", 5, 10);
-    }
-  }
-  var check4 = checkEntry("areaScores", "notificationArea", 3);
-  if (check4) {
-    check4 = checkAreaScores("areaScores", "notificationArea", 6);
-  }
+  var check = checkEntry("benchmark", "notificationBenchmark", 12) && isNumber("benchmark", "notificationBenchmark", 8) && checkValueScores("benchmark", "notificationBenchmark", 13, 30);
 
-  var check5 = checkEntry("objectScores", "notificationObject", 4); 5
-  if (check5) {
-    check5 = checkValueScores("objectScores", "notificationObject", 7, 3)
-  }
-  if (check && check1 && check2 && check3 && check4 && check5) {
-    return true;
-  }
-  return false;
+  var check1 = checkEntry("scores-1", "notificationScores-1", 0) && isNumber("scores-1", "notificationScores-1", 8) && checkValueScores("scores-1", "notificationScores-1", 5, 10);
+
+  var check2 = checkEntry("scores-2", "notificationScores-2", 1) && isNumber("scores-2", "notificationScores-2", 8) && checkValueScores("scores-2", "notificationScores-2", 5, 10);
+
+  var check3 = checkEntry("scores-3", "notificationScores-3", 2) && isNumber("scores-3", "notificationScores-3", 8) && checkValueScores("scores-3", "notificationScores-3", 5, 10);
+
+  var check4 = checkEntry("areaScores", "notificationArea", 3) && checkAreaScores("areaScores", "notificationArea", 6);
+
+  var check5 = checkEntry("objectScores", "notificationObject", 4) && checkValueScores("objectScores", "notificationObject", 7, 3);
+
+  return (check && check1 && check2 && check3 && check4 && check5) ? true : false;
+
 }
 
 // Get điểm khu vực
