@@ -170,7 +170,7 @@ getEle("btnResult").addEventListener("click", function () {
   if (check) {
     var taxMoney = calculateTax();
     if (taxMoney > 0) {
-      getEle("resultContent").innerHTML = "Tiền thuế phải trả là: " + taxMoney.toFixed(2) + "VND";
+      getEle("resultContent").innerHTML = "Tiền thuế phải trả là: " + taxMoney.toFixed(2);
     } else {
       getEle("resultContent").innerHTML = "Bạn không phải chịu thế!";
     }

@@ -138,6 +138,7 @@ function calculateTaxLevel7(taxableIncome) {
 // Tính tiền thuế phải trả
 function calculateTax() {
   var taxableIncome = calculateTaxableIncome();
+  console.log(taxableIncome);
   if (taxableIncome > 960e6) {
     return calculateTaxLevel7(taxableIncome);
   }
@@ -170,7 +171,7 @@ getEle("btnResult").addEventListener("click", function () {
   if (check) {
     var taxMoney = calculateTax();
     if (taxMoney > 0) {
-      getEle("resultContent").innerHTML = "Tiền thuế phải trả là: " + taxMoney.toFixed(2) + "VND";
+      getEle("resultContent").innerHTML = "Tiền thuế phải trả là: " + taxMoney.toFixed(2);
     } else {
       getEle("resultContent").innerHTML = "Bạn không phải chịu thế!";
     }
