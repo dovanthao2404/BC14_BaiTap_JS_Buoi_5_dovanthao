@@ -11,81 +11,13 @@ const MONEY_LEVEL_5 = 1300;
 
 
 
-function getEle(idEle) {
-  return document.getElementById(idEle);
-}
+function checkValidElectricity() {
+  var result = checkEntry("username", "notificationUsername", 1, 0) &&
+    checkName("username", "notificationUsername", 1, 4);
 
-var notifications = [
-  "Vui lòng nhập tên người dùng!",
-  "Vui lòng nhập số kw sử dụng!",
-  "Số kw người dùng phải là số!",
-  "Số kw không âm!",
-  "Vui lòng nhập tên hợp lệ!"
-]
-
-// Kiểm tra người dùng có nhập không
-function checkEntry(idCheck, idNotification, indexNotification) {
-  var contentCheck = getEle(idCheck).value;
-  var notification = getEle(idNotification);
-  if (contentCheck === '') {
-    notification.innerHTML = notifications[indexNotification];
-    return false;
-  } else {
-    notification.innerHTML = '';
-    return true;
-  }
-}
-
-// Kiểm tra có phải là số không
-function checkIsNumber(idCheck, idNotification, indexNotification) {
-  var number = +getEle(idCheck).value;
-  var notification = getEle(idNotification);
-  if (isNaN(number)) {
-    notification.innerHTML = notifications[indexNotification];
-    return false;
-  }
-  notification.innerHTML = '';
-  return true;
-}
-
-// Kiểm tra giá giá trị của điểm
-function checkValueKw(idCheck, idNotification, indexNotification) {
-  var kw = +getEle(idCheck).value;
-  var notification = getEle(idNotification);
-  if (kw < 0) {
-    notification.innerHTML = notifications[indexNotification];
-    return false;
-  }
-  notification.innerHTML = '';
-  return true;
-}
-
-
-
-// Kiểm tra họ tên,
-function checkName(idCheck, idNotification, indexNotification) {
-  var validation = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/
-    ;
-
-  var contentCheck = getEle(idCheck).value;
-  var notification = getEle(idNotification);
-  if (contentCheck.match(validation)) {
-    notification.innerHTML = ''
-    return true;
-  } else {
-    notification.innerHTML = notifications[indexNotification];
-    return false;
-  }
-}
-
-
-function checkValid() {
-  var result = checkEntry("username", "notificationUsername", 0) &&
-    checkName("username", "notificationUsername", 4);
-
-  var result1 = checkEntry("kwUse", "notificationKWUse", 1) &&
-    checkIsNumber("kwUse", "notificationKWUse", 2) &&
-    checkValueKw("kwUse", "notificationKWUse", 3);
+  var result1 = checkEntry("kwUse", "notificationKWUse", 1, 1) &&
+    checkIsNumber("kwUse", "notificationKWUse", 1, 2) &&
+    checkValueNumber("kwUse", "notificationKWUse", 1, 3);
 
   return (result && result1) ? true : false;
 }
@@ -132,11 +64,11 @@ function getTotalMoney(kw) {
 }
 
 getEle("btnTotalAmount").addEventListener("click", function () {
-  var result = checkValid();
+  var result = checkValidElectricity();
   getEle('resultAmount').innerHTML = '';
   if (result) {
     var kw = +getEle("kwUse").value;
     var totalMoney = getTotalMoney(kw);
-    getEle('resultAmount').innerHTML = "Tổng tiền là: " + totalMoney.toFixed(2) + " VND";
+    getEle('resultAmount').innerHTML = "Tổng tiền điện là: " + totalMoney.toFixed(2) + " VND";
   }
 })

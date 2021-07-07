@@ -1,4 +1,3 @@
-
 const INVOICE_HANDLING_FEE_PERSONAL = 4.5;
 const BASIC_SERVICE_FEE_PERSONAL = 20.5;
 const PREMIUM_SERVICE_FEE_PERSONAL = 7.5;
@@ -10,72 +9,16 @@ const BASIC_SERVICE_FEE_ENTERPRISE_SECOND = 5;
 const PREMIUM_SERVICE_FEE_ENTERPRISE = 50;
 
 
-// Lấy element từ id
-function getEle(id) {
-  return document.getElementById(id);
-}
-
-// Các thông báo lỗi
-var notifications = [
-  "Vui lòng nhập vào mã khách hàng!",
-  "Vui lòng chọn loại khách hàng!",
-  "Vui lòng nhập số kết nối!",
-  "Vui lòng nhập số kênh cao cấp!",
-  "Số kết nối phải là số và phải là số nguyên!",
-  "Số kênh cao cấp phải là số và phải là số nguyên!",
-  "Số kết nối không phải là số âm",
-  "Số kênh cao cấp không phải là số âm!",
-  "Số kết nối là số nguyên!",
-  "Số kênh cao cấp là số nguyên!",
-  "Mã khách hàng không chứa các ký tự đặc biệt!"
-]
-
-// Kiểm tra người dùng có nhập không
-function checkEntry(idCheck, idNotification, indexNotification) {
-  var contentCheck = getEle(idCheck).value;
-  var notification = getEle(idNotification);
-  if (contentCheck === '') {
-    notification.innerHTML = notifications[indexNotification];
-    return false;
-  }
-  notification.innerHTML = "";
-  return true;
-}
-
-
-// Kiểm tra người dùng nhập vào có phải là số không
-function checkIsNumber(idCheck, idNotification, indexNotification) {
-  var number = +getEle(idCheck).value;
-  var notification = getEle(idNotification);
-  if (isNaN(number)) {
-    notification.innerHTML = notifications[indexNotification];
-    return false;
-  }
-  notification.innerHTML = notifications[indexNotification];
-  return true;
-}
-
-// kiểm tra người dùng nhập vào số có đúng điều kiện không.
-function checkValueNumber(idCheck, idNotification, indexNotification) {
-  var number = +getEle(idCheck).value;
-  var notification = getEle(idNotification);
-  if (number < 0) {
-    notification.innerHTML = notifications[indexNotification];
-    return false;
-  }
-  notification.innerHTML = '';
-  return true;
-}
 
 // Kiểm tra có phải là số nguyên không
-function checkInteger(idCheck, idNotification, indexNotification) {
+function checkInteger(idCheck, idNotification, indexNotifiParent, indexNotification) {
   var number = +getEle(idCheck).value;
   var notification = getEle(idNotification);
   if (number % 1 === 0) {
     notification.innerHTML = '';
     return true;
   }
-  notification.innerHTML = notifications[indexNotification];
+  notification.innerHTML = notifications[indexNotifiParent][indexNotification];
   return false;
 }
 
@@ -106,7 +49,7 @@ function checkCustomerType(idNotification, indexNotification) {
       return true;
     }
   }
-  getEle("notificationType").innerHTML = notifications[indexNotification];
+  getEle("notificationType").innerHTML = notifications[indexNotifiParent][indexNotification];
   return false;
 }
 
@@ -117,12 +60,12 @@ function getCustomerType() {
 }
 
 // Kiểm tra mã khách hàng
-function checkCustomerCode(idCheck, idNotification, indexNotification) {
+function checkCustomerCode(idCheck, idNotification, indexNotifiParent, indexNotification) {
   var codes = /^([\w])+$/;
   var code = getEle(idCheck).value;
   var notification = getEle(idNotification);
   if (!(code.match(codes))) {
-    notification.innerHTML = notifications[indexNotification];
+    notification.innerHTML = notifications[indexNotifiParent][indexNotification];
     return false;
   }
   notification.innerHTML = '';
@@ -131,27 +74,24 @@ function checkCustomerCode(idCheck, idNotification, indexNotification) {
 
 // Kiểm tra tất cả giá trị có hợp lệ không
 function checkValid() {
-  var result1 = checkEntry("customerCode", "notificationCode", 0) &&
-    checkCustomerCode("customerCode", "notificationCode", 10);
-  console.log(result1)
-  var result2 = checkCustomerType('notificationType', 1);
-  console.log(result2)
+  var result1 = checkEntry("customerCode", "notificationCode", 3, 0) &&
+    checkCustomerCode("customerCode", "notificationCode", 3, 10);
+  var result2 = checkCustomerType('notificationType', 3, 1);
 
-  var result4 = checkEntry("premiumChannel", "notificationPremium", 3) &&
-    checkIsNumber("premiumChannel", "notificationPremium", 5) &&
-    checkValueNumber("premiumChannel", "notificationPremium", 7) &&
-    checkInteger("premiumChannel", "notificationPremium", 9);
-  console.log(result4)
+  var result4 = checkEntry("premiumChannel", "notificationPremium", 3, 3) &&
+    checkIsNumber("premiumChannel", "notificationPremium", 3, 5) &&
+    checkValueNumber("premiumChannel", "notificationPremium", 3, 7) &&
+    checkInteger("premiumChannel", "notificationPremium", 3, 9);
 
   var customerType = getCustomerType();
 
   if (customerType === 0) {
   } else {
 
-    var result3 = checkEntry("connectionNumber", "notificationConnection", 2) &&
-      checkIsNumber("connectionNumber", "notificationConnection", 4) &&
-      checkValueNumber("connectionNumber", "notificationConnection", 6) &&
-      checkInteger("connectionNumber", "notificationConnection", 8);
+    var result3 = checkEntry("connectionNumber", "notificationConnection", 3, 2) &&
+      checkIsNumber("connectionNumber", "notificationConnection", 3, 4) &&
+      checkValueNumber("connectionNumber", "notificationConnection", 3, 6) &&
+      checkInteger("connectionNumber", "notificationConnection", 3, 8);
 
     return (result1 && result2 && result3 && result4) ? true : false;
 
@@ -193,7 +133,6 @@ function calculateCableFeeEnterprise() {
 // Xử lý xuất kết quả
 getEle("btnTotalMoney").addEventListener("click", function () {
   var check = checkValid();
-  console.log(check);
   var resultContent = getEle("resultContent");
   resultContent.innerHTML = '';
   if (check) {
@@ -202,13 +141,10 @@ getEle("btnTotalMoney").addEventListener("click", function () {
 
     if (customerType === 0) {
       total = calculateCableFeePersonal();
-      resultContent.innerHTML = "Tổng số tiền phải trả là: " + total + "$";
+      resultContent.innerHTML = "Tổng số tiền cáp phải trả là: " + total + "$";
     } else {
       total = calculateCableFeeEnterprise();
-      resultContent.innerHTML = "Tổng số tiền phải trả là: " + total + "$";
+      resultContent.innerHTML = "Tổng số tiền cáp phải trả là: " + total + "$";
     }
   }
 })
-
-
-
