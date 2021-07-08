@@ -28,7 +28,7 @@ function checkValidTax() {
   var result3 = checkEntry("dependents", "notifiDependent", 2, 2) &&
     checkIsNumber("dependents", "notifiDependent", 2, 3) &&
     checkValueNumber("dependents", "notifiDependent", 2, 5) &&
-    checkInteger("dependents", "notifiDependent", 2, 7);
+    checkInteger("dependents", "notifiDependent", 2, 5);
 
   return (result1 && result2 && result3) ? true : false;
 }

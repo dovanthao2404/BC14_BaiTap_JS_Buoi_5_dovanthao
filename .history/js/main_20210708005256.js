@@ -37,7 +37,6 @@ var notifications = [
     "Tổng thu nhập không phải số âm!",
     "Số người phụ thuộc không phải là số âm!",
     "Vui lòng nhập tên hợp lệ!",
-    "Số người phụ thuộc là số nguyên!"
   ], [
     "Vui lòng nhập vào mã khách hàng!",
     "Vui lòng chọn loại khách hàng!",
