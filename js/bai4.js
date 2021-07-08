@@ -40,16 +40,16 @@ getEle("enterprise").addEventListener("click", function () {
 })
 
 // check select loại khách hàng
-function checkCustomerType(idNotification, indexNotification) {
+function checkCustomerType(idNotification, indexNotifiParent, indexNotification) {
 
   var customerType = document.querySelectorAll("input[name=typeServices]");
   for (var i = 0; i < customerType.length; i++) {
     if (customerType[i].checked) {
-      getEle("notificationType").innerHTML = '';
+      getEle(idNotification).innerHTML = '';
       return true;
     }
   }
-  getEle("notificationType").innerHTML = notifications[indexNotifiParent][indexNotification];
+  getEle(idNotification).innerHTML = notifications[indexNotifiParent][indexNotification];
   return false;
 }
 
